@@ -1,0 +1,140 @@
+<div class="ind-ins-popup-component">
+    <div class="ind-ins-popup-container">
+        <form class="ind-ins-popup-form-container" [formGroup]="requestForm" (ngSubmit)="requestSubmit()">
+            <h2>{{ isVerification ? 'Verify Industry/Institute Request' : 'Add Industry/Institute Request Form' }}</h2>
+            <div class="name form-input-container">
+                <label for="name">
+                    Industry/Institute Name*
+                </label>
+                <input id="name" type="text" formControlName="name">
+                <div *ngIf="requestForm?.get('name')?.invalid && requestForm?.get('name')?.touched" class="text-danger">
+                    Name is required.
+                </div>
+            </div>
+
+            <div class="description form-input-container">
+                <label for="email">
+                    Description
+                </label>
+                <textarea id="description" type="text" formControlName="description"></textarea>
+            </div>
+
+            <div class="email form-input-container">
+                <label for="email">
+                    Industry/Institute Email*
+                </label>
+                <input id="email" type="email" formControlName="email">
+                <div *ngIf="requestForm?.get('email')?.invalid && requestForm?.get('email')?.touched" class="text-danger">
+                    Please enter a valid email.
+                </div>
+            </div>
+
+            <div class="website form-input-container">
+                <label for="website">
+                    Industry/Institute Website Url*
+                </label>
+                <input id="website" type="text" formControlName="website">
+                <div *ngIf="requestForm?.get('website')?.invalid && requestForm?.get('website')?.touched" class="text-danger">
+                    Website url is required.
+                </div>
+            </div>
+
+            <div class="address-container">
+                <div class="city form-input-container">
+                    <label for="city">
+                        City*
+                    </label>
+                    <input id="city" type="text" formControlName="city">
+                    <div *ngIf="requestForm?.get('city')?.invalid && requestForm?.get('city')?.touched" class="text-danger">
+                        City is required.
+                    </div>
+                </div>
+                <div class="district form-input-container">
+                    <label for="district">
+                        District*
+                    </label>
+                    <input id="district" type="text" formControlName="district">
+                    <div *ngIf="requestForm?.get('district')?.invalid && requestForm?.get('district')?.touched" class="text-danger">
+                        District is required.
+                    </div>
+                </div>
+                <div class="state form-input-container">
+                    <label for="state">
+                        State*
+                    </label>
+                    <input id="state" type="text" formControlName="state">
+                    <div *ngIf="requestForm?.get('state')?.invalid && requestForm?.get('state')?.touched" class="text-danger">
+                        State is required.
+                    </div>
+                </div>
+                <div class="pincode form-input-container">
+                    <label for="pincode">
+                        Pincode*
+                    </label>
+                    <input id="pincode" type="number" formControlName="pincode">
+                    <div *ngIf="requestForm?.get('pincode')?.invalid && requestForm?.get('pincode')?.touched" class="text-danger">
+                        Pincode is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="type form-input-container">
+                <label for="type">
+                    Type*
+                </label>
+                <mat-radio-group class="mat-radio" aria-label="Type" id="type" formControlName="type">
+                    <mat-radio-button [value]="type.value" *ngFor="let type of types; let i = index">{{ type.name }}</mat-radio-button>
+                </mat-radio-group>
+                <div *ngIf="requestForm?.get('type')?.invalid && requestForm?.get('type')?.touched"
+                    class="text-danger">
+                    Type is required.
+                </div>
+            </div>
+
+            <div class="ph_no form-input-container">
+                <label for="ph_no">
+                    Industry/Institute Phone Number*
+                </label>
+                <input id="ph_no" type="text" formControlName="ph_no">
+                <div *ngIf="requestForm?.get('ph_no')?.invalid && requestForm?.get('ph_no')?.touched"
+                    class="text-danger">
+                    Phone Number is required.
+                </div>
+            </div>
+
+            <div class="reporterEmail form-input-container" *ngIf="!isVerification">
+                <label for="reporterEmail">
+                   Reporter Email*
+                </label>
+                <input id="reporterEmail" type="email" formControlName="reporterEmail">
+                <div *ngIf="requestForm?.get('reporterEmail')?.invalid && requestForm?.get('reporterEmail')?.touched" 
+                class="text-danger">
+                    Please enter a valid reporter email.
+                </div>
+            </div>
+
+            <div *ngIf="isVerification" class="status form-input-container">
+                <label for="status">
+                    Status*
+                </label>
+                <mat-select class="mat-select" formControlName="status">
+                    <mat-option [value]="status.value" *ngFor="let status of statusList; let i = index">{{status.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="requestForm?.get('status')?.invalid && requestForm?.get('status')?.touched" class="text-danger">
+                    Status is required.
+                </div>
+            </div>
+
+            <div *ngIf="isVerification" class="comments form-input-container">
+                <label for="comments">
+                    Comments
+                </label>
+                <input id="comments" type="text" formControlName="comments">
+            </div>
+
+            <button class="button" [ngClass]="{mb: apiError}" type="submit">{{ isVerification ? 'Verify Request' : 'Send Request'}}</button>
+            <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+            <div *ngIf="apiError" class="went-wrong text-danger"> {{ apiError }} </div>
+        </form>
+    </div>
+</div>

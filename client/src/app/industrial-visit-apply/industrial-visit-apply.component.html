@@ -1,0 +1,123 @@
+<div class="industrial-visit-apply-component">
+    <div class="industrial-visit-apply-container">
+      <h2 class="title">{{ ivDetails.name }}</h2>
+      <p class="description">{{ ivDetails.description }}</p>
+  
+      <form [formGroup]="visitorsForm" (ngSubmit)="onSubmit()">
+        <h2 class="form-title">Faculty:</h2>
+        <div class="form-main-container" formArrayName="faculty">
+          <div class="form-container" *ngFor="let entry of faculty.controls; let i = index" [formGroupName]="i">
+            <div class="name form-input-container">
+              <label>Name:</label>
+              <input type="text" formControlName="name" />
+              <div *ngIf="entry.get('name')?.['invalid'] && (entry.get('name')?.['touched'] || entry.get('name')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('name')?.errors?.['required']">Name is required.</small>
+                <small class="text-danger" *ngIf="entry.get('name')?.errors?.['minlength']">Name must be at least 2 characters long.</small>
+              </div>
+            </div>
+            <div class="type disabled form-input-container">
+              <label>Type:</label>
+              <input [disabled]="true" tabindex="-1" type="text" formControlName="type" />
+              <div *ngIf="entry.get('type')?.['invalid'] && (entry.get('type')?.['touched'] || entry.get('type')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('type')?.errors?.['required']">Type is required.</small>
+              </div>
+            </div>
+            <div class="reg_id form-input-container">
+              <label>Faculty ID:</label>
+              <input type="text" formControlName="reg_id" />
+              <div *ngIf="entry.get('reg_id')?.['invalid'] && (entry.get('reg_id')?.['touched'] || entry.get('reg_id')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('reg_id')?.errors?.['required']">Registration ID is required.</small>
+              </div>
+            </div>
+            <div class="contact_no form-input-container">
+              <label>Contact No:</label>
+              <input type="text" formControlName="contact_no" />
+              <div *ngIf="entry.get('contact_no')?.['invalid'] && (entry.get('contact_no')?.['touched'] || entry.get('contact_no')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('contact_no')?.errors?.['required']">Contact number is required.</small>
+                <small class="text-danger" *ngIf="entry.get('contact_no')?.errors?.['pattern']">Contact number must be 10 digits.</small>
+              </div>
+            </div>
+            <div class="department form-input-container">
+              <label>Department:</label>
+              <mat-select class="mat-select" formControlName="dept">
+                <mat-option [value]="dept.value" *ngFor="let dept of departments">{{ dept.label }}</mat-option>
+            </mat-select>
+              <div *ngIf="entry.get('dept')?.['invalid'] && (entry.get('dept')?.['touched'] || entry.get('dept')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('dept')?.errors?.['required']">Department is required.</small>
+              </div>
+            </div>
+            <div class="email form-input-container">
+              <label>Email:</label>
+              <input type="email" formControlName="email" />
+              <div *ngIf="entry.get('email')?.['invalid'] && (entry.get('email')?.['touched'] || entry.get('email')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('email')?.errors?.['required']">Email is required.</small>
+                <small class="text-danger" *ngIf="entry.get('email')?.errors?.['email']">Invalid email format.</small>
+              </div>
+            </div>
+            <button type="button" class="btn" [disabled]="faculty.controls.length === 1" (click)="removeFaculty(i)">Remove</button>
+            <button *ngIf="i === (faculty.controls.length - 1)" type="button" class="btn" (click)="addFaculty()" [disabled]="faculty.controls.length === ivDetails.no_of_faculty">Add Faculty</button>
+          </div>
+        </div>
+  
+        <h2 class="form-title">Students:</h2>
+        <div class="form-main-container" formArrayName="students">
+          <div class="form-container" *ngFor="let entry of students.controls; let i = index" [formGroupName]="i">
+            <div class="name form-input-container">
+              <label>Name:</label>
+              <input type="text" formControlName="name" />
+              <div *ngIf="entry.get('name')?.['invalid'] && (entry.get('name')?.['touched'] || entry.get('name')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('name')?.errors?.['required']">Name is required.</small>
+                <small class="text-danger" *ngIf="entry.get('name')?.errors?.['minlength']">Name must be at least 2 characters long.</small>
+              </div>
+            </div>
+            <div class="type disabled form-input-container">
+              <label>Type:</label>
+              <input [disabled]="true" tabindex="-1" type="text" [disabled]="true" formControlName="type" />
+              <div *ngIf="entry.get('type')?.['invalid'] && (entry.get('type')?.['touched'] || entry.get('type')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('type')?.errors?.['required']">Type is required.</small>
+              </div>
+            </div>
+            <div class="reg_id form-input-container">
+              <label>Registration ID:</label>
+              <input type="text" formControlName="reg_id" />
+              <div *ngIf="entry.get('reg_id')?.['invalid'] && (entry.get('reg_id')?.['touched'] || entry.get('reg_id')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('reg_id')?.errors?.['required']">Registration ID is required.</small>
+              </div>
+            </div>
+            <div class="contact_no form-input-container">
+              <label>Contact No:</label>
+              <input type="text" formControlName="contact_no" />
+              <div *ngIf="entry.get('contact_no')?.['invalid'] && (entry.get('contact_no')?.['touched'] || entry.get('contact_no')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('contact_no')?.errors?.['required']">Contact number is required.</small>
+                <small class="text-danger" *ngIf="entry.get('contact_no')?.errors?.['pattern']">Contact number must be 10 digits.</small>
+              </div>
+            </div>
+            <div class="department form-input-container">
+              <label>Department:</label>
+              <mat-select class="mat-select" formControlName="dept">
+                <mat-option [value]="dept.value" *ngFor="let dept of departments">{{ dept.label }}</mat-option>
+            </mat-select>
+              <div *ngIf="entry.get('dept')?.['invalid'] && (entry.get('dept')?.['touched'] || entry.get('dept')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('dept')?.errors?.['required']">Department is required.</small>
+              </div>
+            </div>
+            <div class="email form-input-container">
+              <label>Email:</label>
+              <input type="email" formControlName="email" />
+              <div *ngIf="entry.get('email')?.['invalid'] && (entry.get('email')?.['touched'] || entry.get('email')?.['dirty'])">
+                <small class="text-danger" *ngIf="entry.get('email')?.errors?.['required']">Email is required.</small>
+                <small class="text-danger" *ngIf="entry.get('email')?.errors?.['email']">Invalid email format.</small>
+              </div>
+            </div>
+            <button type="button" class="btn" [disabled]="students.controls.length === 1" (click)="removeStudents(i)">Remove</button>
+            <button *ngIf="i === (students.controls.length - 1)" type="button" class="btn" [disabled]="students.controls.length === ivDetails.no_of_students" (click)="addStudents()">Add Student</button>
+          </div>
+        </div>
+        
+        <!-- Single submit button for both sections -->
+        <button class="btn submit-btn" type="submit" [disabled]="visitorsForm.invalid">Submit</button>
+        <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+      </form>
+    </div>
+  </div>
+  

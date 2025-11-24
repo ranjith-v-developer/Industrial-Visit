@@ -1,0 +1,92 @@
+.industrial-visit-edit-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+        text-align: center;
+        margin: 40px auto;
+    }   
+    .industrial-visit-form-container {
+        display: grid;
+        .form-main-container {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 30px;
+            padding: 30px 100px;
+            .form-input-container {
+                display: grid;
+                margin-bottom: 30px;
+                gap: 10px;
+                width: 25rem;
+                overflow: auto;
+                .not-indIns-text {
+                    font-size: 13px;
+                    text-align: justify;
+                    span {
+                        text-decoration: dashed;
+                        color: red;
+                        cursor: pointer;
+                    }
+                }
+                label {
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+                input, textarea {
+                    font-family: roboto, sans-serif;
+                    font-size: 14px;
+                    height: 45px;
+                    border: none;
+                    border-bottom: 2px solid gray;
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                .mat-select,.mat-radio {
+                    height: 45px;
+                }
+                .mat-select {
+                    border-bottom: 2px solid gray;
+                    ::ng-deep .mat-mdc-select-trigger {
+                        height: 100%;
+                    }
+                }
+                .mat-date-form-field {
+                    width: 100%;
+                    position: relative;
+                    #start_date {
+                        width: 25rem;
+                    }
+                    #end_date {
+                        width: 25rem;
+                    }
+                    .mat-datepicker-toggle {
+                        position: absolute;
+                        right: 5px;
+                    }
+                }
+            }
+        }
+        .button {
+            cursor: pointer;
+            width: 400px;
+            height: 40px;
+            border-radius: 5px;
+            border: none;
+            background: #013972;
+            color: white;
+            font-size: 16px;
+            margin: 25px auto;
+        }
+    }
+}
+
+::ng-deep .mat-mdc-select-panel {
+    width: 25rem !important;
+    border-bottom: 2px solid gray;
+}
+
+.text-danger {
+    font-size: 12px;
+    color: red;
+}

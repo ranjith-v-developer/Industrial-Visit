@@ -1,0 +1,78 @@
+.preloader {
+    z-index: 999;
+    background-color:#a9a9a96e;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    &.global {
+      position: fixed;
+    }
+  
+    &.secondary {
+      position: relative;
+    }
+  
+    .loader {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 100px;
+      height: 100px;
+      margin: -75px 0 0 -75px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #013972;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    .big-spinner {
+      border-width: 0.35em;
+      width:9rem;
+      height: 9rem;
+      display: block;
+      position: fixed;
+      left: 44%;
+      top: 40%;
+    }
+  }
+  
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .spinner-border {
+      color: #d7bb73;
+    }
+  
+  
+  
+  //Delete this button when we use this component in production mode
+  button {
+    position: relative;
+    z-index: 200;
+  }
+  

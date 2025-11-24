@@ -1,0 +1,102 @@
+.header-component {
+    height: 60px;
+    background: #013972;
+    padding: 10px 30px;
+    color: #ffffff;
+    font-family: roboto, sans-serif;
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .home-link {
+            color: #ffffff;
+            text-decoration: none; 
+        }
+        .btn-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            .link-btn {
+                color: #ffffff;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 10px;
+                border: 1px solid;
+                border-radius: 5px;
+            }
+        }
+        .user-container {
+            z-index: 2;
+            cursor: pointer;
+            .avatar-container {
+                position: relative;
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+                .request-count {
+                    position: absolute;
+                    top: -10px;
+                    right: -10px;
+                    margin-left: 7px;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    background: red;
+                    color: black;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 13px;
+                }
+            }
+            .right-menu-container {
+                position: absolute;
+                right: 10px;
+                top: 70px;
+                box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                background-color: #ffffff;
+                color: #013972;
+                .menu-lists {
+                    margin: auto;
+                    .menu-list {
+                        display: flex;
+                        align-items: center;
+                        padding: 15px 35px;
+                        border-bottom: 1px solid;
+                        a {
+                            text-decoration: none;
+                            color: #013972;
+                        }
+                        .request-count {
+                            margin-left: 7px;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            background: red;
+                            color: black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+        .nav-container {
+            display: flex;
+            .nav-item {
+                padding: 20px;
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 20px;
+                border-left: 2px solid #ffffff;
+                &:last-child {
+                    border-right: 2px solid #ffffff; 
+                }
+            }
+        }
+    }
+}

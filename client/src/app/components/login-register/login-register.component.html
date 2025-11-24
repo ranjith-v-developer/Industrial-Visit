@@ -1,0 +1,116 @@
+<div class="login-register-component">
+    <div *ngIf="actionParam === 'signin' " class="login-container">
+        <form class="login-form-container" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+            <h2>Login Form</h2>
+            <p class="text-danger header-error" *ngIf="error">{{ error }}</p>
+            <div class="email form-input-container">
+                <label for="email">
+                    Email*
+                </label>
+                <input id="email" type="text" formControlName="email">
+                <div *ngIf="loginForm?.get('email')?.invalid && loginForm?.get('email')?.touched" class="text-danger">
+                    Please enter a valid email.
+                </div>
+            </div>
+
+            <div class="password form-input-container">
+                <label for="password">
+                    Password*
+                </label>
+                <input id="password" type="password" formControlName="password">
+                <div *ngIf="loginForm?.get('password')?.invalid && loginForm?.get('password')?.touched"
+                    class="text-danger">
+                    Password is required.
+                </div>
+            </div>
+            <button class="button" type="submit" [disabled]="loading">{{ loading ? 'Login...' : 'Login' }}</button>
+            <p class="signup-link">If you don't have an account, <a class="link" [href]="'/login?action=signup&redirectTo=' + redirectTo">Please create a new user</a></p>
+        </form>
+    </div>
+    <div *ngIf="actionParam === 'signup'" class="register-container">
+        <form class="register-form-container" [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+            <h2>Register Form</h2>
+            <p class="text-danger"  *ngIf="error">{{ error }}</p>
+            <div class="firstName form-input-container">
+                <label for="firstName">
+                    Firstname*
+                </label>
+                <input id="firstName" type="text" formControlName="firstName">
+                <div *ngIf="registerForm?.get('firstName')?.invalid && registerForm?.get('firstName')?.touched" class="text-danger">
+                    Firstname is required.
+                </div>
+            </div>
+
+            <div class="lastName form-input-container">
+                <label for="lastName">
+                    Lastname*
+                </label>
+                <input id="lastName" type="text" formControlName="lastName">
+                <div *ngIf="registerForm?.get('lastName')?.invalid && registerForm?.get('lastName')?.touched" class="text-danger">
+                    Lastname is required.
+                </div>
+            </div>
+
+            <div class="email form-input-container">
+                <label for="email">
+                    Email*
+                </label>
+                <input id="email" type="email" formControlName="email">
+                <div *ngIf="registerForm?.get('email')?.invalid && registerForm?.get('email')?.touched" class="text-danger">
+                    Please enter a valid email.
+                </div>
+            </div>
+
+            <div class="password form-input-container">
+                <label for="password">
+                    Password*
+                </label>
+                <input id="password" type="password" formControlName="password">
+                <div *ngIf="registerForm?.get('password')?.invalid && registerForm?.get('password')?.touched"
+                    class="text-danger">
+                    Password is required.
+                </div>
+            </div>
+
+            <div class="ph_no form-input-container">
+                <label for="ph_no">
+                    Phone Number*
+                </label>
+                <input id="ph_no" type="text" formControlName="ph_no">
+                <div *ngIf="registerForm?.get('ph_no')?.invalid && registerForm?.get('ph_no')?.touched"
+                    class="text-danger">
+                    Phone Number is required.
+                </div>
+            </div>
+
+            <div class="role form-input-container">
+                <label for="role">
+                    Role*
+                </label>
+                <mat-radio-group class="mat-radio" aria-label="Role" id="role" formControlName="role">
+                    <mat-radio-button [value]="role.value" *ngFor="let role of roles; let i = index">{{ role.name }}</mat-radio-button>
+                </mat-radio-group>
+                <div *ngIf="registerForm?.get('role')?.invalid && registerForm?.get('role')?.touched"
+                    class="text-danger">
+                    Role is required.
+                </div>
+            </div>
+
+            <div class="indIns form-input-container">
+                <label for="indIns">
+                    Choose Industry name / Institue name*
+                </label>
+                <mat-select class="mat-select" formControlName="indIns">
+                    <input id="searchIndustryInstitute" type="text" (keyup)="search($event)" placeholder="Search...">
+                    <mat-option [value]="industryInstitute.id" *ngFor="let industryInstitute of industryInstituteList; let i = index">{{industryInstitute.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="registerForm?.get('indIns')?.invalid && registerForm?.get('indIns')?.touched"
+                    class="text-danger">
+                    Industry / Institue is required.
+                </div>
+                <div class="not-indIns-text">If your industry/institute is not listed, please submit an 'Add Industry/Institute' request to our support team. <span (click)="showpopup()">Click Here</span> </div>
+            </div>
+            <button class="button" type="submit" [disabled]="loading">{{ loading ? 'Registering...' : 'Register'}}</button>
+        </form>
+    </div>
+</div>

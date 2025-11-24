@@ -1,0 +1,76 @@
+.industry-institue-request-component {
+    margin: auto 16%;
+    .industry-institue-request-container {
+        .header {
+            display: flex;
+            margin: 50px auto;
+            justify-content: space-between;
+            h2 {
+                margin: 0;
+            }
+            .search-container {
+                position: relative;
+                border: 2px solid rgba(34, 37, 41, .1);
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                width: 410px;
+                input {
+                    height: 40px;
+                    width: 400px;
+                    border: none;
+                    padding: 5px;
+                    font-size: 15px;
+                    &:focus-visible {
+                        border: none;
+                        outline: none;
+                    }
+                }
+                mat-icon {
+                    padding: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .table-container {
+            width: auto;
+            min-width: 100%;
+            table-layout: auto;
+            border-collapse: collapse;
+            .table-head-container {
+                height: 50px;
+                background: #013972;
+                color: #ffffff;
+                .table-head-row {
+                    .table-head {
+                        font-weight: normal;
+                        padding: 10px;
+                        text-align: left;
+                    }
+                }
+            }
+            .table-body-container {
+                height: 50px;
+                tr:nth-child(even) {
+                    background-color: #eee;
+                  }
+                .table-data-row {
+                    cursor: pointer;
+                    &:hover {
+                        box-shadow: 0 0 10px rgba(0, 0, 0, .5)
+                    }
+                    .table-data {
+                        font-weight: normal;
+                        padding: 10px;
+                        text-align: left;
+                        border-bottom: 2px solid rgba(34, 37, 41, .1);
+                    }
+                } 
+            }
+        }
+        .no-records {
+            text-align: center;
+            font-size: 24px;
+        }
+    }
+}

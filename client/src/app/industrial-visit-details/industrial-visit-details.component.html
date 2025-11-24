@@ -1,0 +1,161 @@
+<div class="industrial-visit-details-component">
+    <div class="industrial-visit-details-container">
+        <h2 class="title">{{ ivDetails.name }}</h2>
+        <p class="description">{{ ivDetails.description}}</p>
+        <div class="field-main-container">
+            <div *ngFor="let ivKey of ivDetailsObjectKeys;" class="{{ ivKey }} field-container">
+                <label class="field-label">{{ labelSelection[ivKey] }}</label>
+                <span class="field-value">{{ ivDetails[ivKey] }}</span>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!isIndustry">
+            <button *ngIf="!showVisitors && isShowApply" class="apply-btn" [ngClass]="{ 'disabled': ivDetails.disabled }"
+                (click)="handleRoute()">Apply</button>
+            <div *ngIf="showVisitors" class="visitors-main-container">
+                <div class="visitor-header">
+                    <h3 class="fs-title">Faculties / Students Details</h3>
+                    <button class="edit-btn" *ngIf="isShowApply"><a
+                            [routerLink]="['/institute/industrial-visits', ivDetails.id, 'modify']">Edit</a></button>
+                </div>
+
+                <div class="visitors-container faculty-container">
+                    <h3>Faculties</h3>
+                    <div class="faculty" *ngFor="let facultyDetail of visitorListsObj?.faculty; let i = index">
+                        <div [ngClass]="{ active: facultyDetail.id === activeId }" class="row-header"
+                            (click)="rowClick(facultyDetail.id)">
+                            <p>{{ facultyDetail.name }} ({{ facultyDetail.reg_id }})</p>
+                            <div class="attend-container">
+                                <button *ngIf="facultyDetail.attend === true" class="btn attend">Attend</button>
+                                <button *ngIf="facultyDetail.attend === false" class="btn not-attend">Not Attend</button>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="facultyDetail.id === activeId">
+                            <div class="faculty-detail-main-container">
+                                <div class="faculty-detail" *ngFor="let visitorKey of visitorKeys">
+                                    <label class="visitor-label">
+                                        {{ visitorKey === 'reg_id' ? "Faculty ID" : visitorLabelSelection[visitorKey] }}
+                                    </label>
+                                    <p class="visitor-value">{{ facultyDetail[visitorKey] || '--' }}</p>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="visitors-container student-container">
+                    <h3>Students</h3>
+                    <div class="student" *ngFor="let studentDetail of visitorListsObj?.student; let j = index">
+                        <div [ngClass]="{ active: studentDetail.id === activeId }" class="row-header"
+                            (click)="rowClick(studentDetail.id)">
+                            <p>{{ studentDetail.name }} ({{ studentDetail.reg_id }})</p>
+                            <div class="attend-container">
+                                <button *ngIf="studentDetail.attend === true" class="btn attend">Attend</button>
+                                <button *ngIf="studentDetail.attend === false" class="btn not-attend">Not Attend</button>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="studentDetail.id === activeId">
+                            <div class="student-detail-main-container">
+                                <div class="student-detail" *ngFor="let visitorKey of visitorKeys">
+                                    <label class="visitor-label">
+                                        {{ visitorLabelSelection[visitorKey] }}
+                                    </label>
+                                    <p class="visitor-value">{{ studentDetail[visitorKey] || '--' }}</p>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isIndustry && ivDetails.instituteData.length > 0">
+            <div class="institute-visitor-main-container">
+                <div class="visitor-header">
+                    <h3 class="fs-title">Institute with Faculties / Students Details</h3>
+                </div>
+
+                <div class="institute-detail-container" *ngFor="let insData of instituteData; let i = index">
+                    <div [ngClass]="{ active: insData.id === instituteActiveId }" class="institute-detail-header" (click)="instituteRowClick(insData.id)">
+                        <p>{{ insData.name }}</p>
+                    </div>
+                    <ng-container *ngIf="insData.id === instituteActiveId">
+                        <div class="institute-detail-main-container">
+                            <div class="visitors-container faculty-container">
+                                <h3>Faculties</h3>
+                                <div class="faculty"
+                                    *ngFor="let facultyDetail of insData.visitorListsObj?.faculty; let i = index">
+                                    <div [ngClass]="{ active: facultyDetail.id === activeId }" class="row-header"
+                                        (click)="rowClick(facultyDetail.id)">
+                                        <p>{{ facultyDetail.name }} ({{ facultyDetail.reg_id }})</p>
+                                          <ng-container *ngIf="checkDateComparison(ivDetails.end_date, { checkAfter: true })">
+                                            <div class="attend-container">
+                                                <button *ngIf="facultyDetail.attend === true" class="btn attend">Attend</button>
+                                                <button *ngIf="facultyDetail.attend === false" class="btn not-attend">Not Attend</button>
+                                            </div>
+                                          </ng-container>
+                                          
+                                          <ng-container *ngIf="checkDateComparison(ivDetails.end_date, { checkSame: true })">
+                                            <div class="attend-container">
+                                                <button class="btn" [ngClass]="{ 'attend': facultyDetail.attend === true }" (click)="handleAttend(facultyDetail.id, true); $event.stopPropagation()">Attend</button>
+                                                <button class="btn" [ngClass]="{ 'not-attend': facultyDetail.attend === false }" (click)="handleAttend(facultyDetail.id, false); $event.stopPropagation()">Not Attend</button>
+                                            </div>
+                                          </ng-container>
+                                    </div>
+                                    <ng-container *ngIf="facultyDetail.id === activeId">
+                                        <div class="faculty-detail-main-container">
+                                            <div class="faculty-detail" *ngFor="let visitorKey of visitorKeys">
+                                                <label class="visitor-label">
+                                                    {{ visitorKey === 'reg_id' ? "Faculty ID" :
+                                                    visitorLabelSelection[visitorKey] }}
+                                                </label>
+                                                <p class="visitor-value">{{ facultyDetail[visitorKey] }}</p>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="visitors-container student-container">
+                                <h3>Students</h3>
+                                <div class="student"
+                                    *ngFor="let studentDetail of insData.visitorListsObj?.student; let j = index">
+                                    <div [ngClass]="{ active: studentDetail.id === activeId }" class="row-header"
+                                        (click)="rowClick(studentDetail.id)">
+                                        <p>{{ studentDetail.name }} ({{ studentDetail.reg_id }})</p>
+                                          <ng-container *ngIf="checkDateComparison(ivDetails.end_date, { checkAfter: true })">
+                                            <div class="attend-container">
+                                                <button *ngIf="studentDetail.attend === true" class="btn attend">Attend</button>
+                                                <button *ngIf="studentDetail.attend === false" class="btn not-attend">Not Attend</button>
+                                            </div>
+                                          </ng-container>
+                                          
+                                          <ng-container *ngIf="checkDateComparison(ivDetails.end_date, { checkSame: true })">
+                                            <div class="attend-container">
+                                                <button class="btn" [ngClass]="{ 'attend': studentDetail.attend === true }" (click)="handleAttend(studentDetail.id, true); $event.stopPropagation()">Attend</button>
+                                                <button class="btn" [ngClass]="{ 'not-attend': studentDetail.attend === false }" (click)="handleAttend(studentDetail.id, false); $event.stopPropagation()">Not Attend</button>
+                                            </div>
+                                          </ng-container>
+                                    </div>
+                                    
+                                    <ng-container *ngIf="studentDetail.id === activeId">
+                                        <div class="student-detail-main-container">
+                                            <div class="student-detail" *ngFor="let visitorKey of visitorKeys">
+                                                <label class="visitor-label">
+                                                    {{ visitorLabelSelection[visitorKey] }}
+                                                </label>
+                                                <p class="visitor-value">{{ studentDetail[visitorKey] }}</p>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+</div>

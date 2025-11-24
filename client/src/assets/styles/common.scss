@@ -1,0 +1,35 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+.mat-mdc-radio-group {
+    .mat-mdc-radio-button {
+        .mdc-radio__native-control:enabled:checked+.mdc-radio__background, .mdc-radio__native-control:enabled:checked:focus+.mdc-radio__background {
+                .mdc-radio__outer-circle {
+                    border-color: #013972;
+                }
+                .mdc-radio__inner-circle {
+                    border-color: #013972;
+                }
+        }
+      }
+  }
+
+  .mat-mdc-option {
+    &.mat-mdc-option-active.mdc-list-item {
+        background-color: #013972 !important;
+        .mdc-list-item__primary-text {
+            color: #ffffff !important;
+        }
+        .mat-pseudo-checkbox {
+            --mat-minimal-pseudo-checkbox-selected-checkmark-color: #ffffff;
+        }
+    }
+  }
+
+  .mdc-dialog--open {
+    .mat-mdc-dialog-surface {
+        background-color: #ffffff !important;
+    }
+  }

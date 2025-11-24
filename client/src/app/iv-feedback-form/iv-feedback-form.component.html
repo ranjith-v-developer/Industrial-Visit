@@ -1,0 +1,39 @@
+<div class="iv-feedback-form-component">
+  <div class="iv-feedback-form-main-container">
+      <form *ngIf="!submittedStatus" class="iv-feedback-form-container" [formGroup]="feedbackForm" (ngSubmit)="feedbackSubmit()">
+          <h2>Feedback Form for {{ ivDetails.name }}</h2>
+          <p class="text-danger header-error" *ngIf="error">{{ error }}</p>
+          <div class="rating form-input-container">
+              <label for="rating"> Rating* </label>
+              <input 
+                id="rating" 
+                type="number" 
+                formControlName="rating" 
+                min="1" 
+                max="5"
+                placeholder="Rate between 1 and 5" 
+                aria-describedby="ratingHint"
+              >
+              <small id="ratingHint" class="hint">Give your rating out of 5</small>
+              <div *ngIf="feedbackForm?.get('rating')?.invalid && feedbackForm?.get('rating')?.touched" class="text-danger">
+                Please enter a rating between 1 and 5.
+              </div>
+            </div>
+
+            <div class="comments form-input-container">
+              <label for="comments"> Comments </label>
+              <textarea 
+                id="comments" 
+                formControlName="comments" 
+              ></textarea>
+            </div>
+          <button class="button" type="submit" [disabled]="loading">{{ loading ? 'Submitting...' : 'Submit' }}</button>
+      </form>
+      <div *ngIf="submittedStatus === 'done'" class="submitted-container">
+          <h2> You have already submitted the feedback. </h2>
+      </div>
+      <div *ngIf="submittedStatus === 'thank'" class="submitted-container">
+        <h2> Thank you for submitting the feedback. </h2>
+      </div>
+  </div>
+</div>

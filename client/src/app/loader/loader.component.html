@@ -1,0 +1,11 @@
+<div *ngIf="show && type === 'fancy'" class="preloader"
+     [ngClass]="{global: id === 'global', secondary: id !== 'global'}">
+  <div class="loader"></div>
+</div>
+<div *ngIf="show && type === 'spinner-small'" class="spinner-border">
+</div>
+<div *ngIf="show && type === 'spinner-big'" class="preloader"
+     [ngClass]="{global: id === 'global', secondary: id !== 'global'}">
+<div  class="spinner-border big-spinner">
+</div>
+</div>

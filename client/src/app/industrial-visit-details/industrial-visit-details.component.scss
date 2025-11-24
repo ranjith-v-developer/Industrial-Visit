@@ -1,0 +1,262 @@
+.industrial-visit-details-component {
+    margin: auto 20rem;
+    .title {
+        margin: 70px auto;
+        margin-bottom: 20px;
+        font-family: roboto, sans-serif;
+    }
+
+    .description {
+        font-family: roboto, sans-serif;
+        margin-bottom: 40px;
+
+    }
+
+    .field-main-container {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 10px;
+        font-family: roboto, sans-serif;
+        .field-container {
+            display: flex;
+            flex-direction: column;
+            width: 35rem;
+            .field-label {
+                padding: 15px 0px;
+                font-weight: bold;
+                font-size: 17px;
+            }
+
+            .field-value {
+                padding: 0px 0px 15px 0px;
+                font-size: 16px;
+                overflow-wrap: break-word;
+                text-align: justify;
+            }
+        }
+    }
+
+    .apply-btn {
+        cursor: pointer;
+        width: 150px;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        background: #013972;
+        color: white;
+        font-size: 16px;
+        margin: 25px auto;
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+    .visitors-main-container {
+        border-top: 2px solid;
+        .visitor-header {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            .fs-title {
+                margin-bottom: 2rem;
+                text-align: center;
+                padding-top: 25px;
+            }
+            .edit-btn {
+                cursor: pointer;
+                width: 150px;
+                height: 40px;
+                border-radius: 5px;
+                border: none;
+                background: #013972;
+                color: white;
+                font-size: 16px;
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+        .faculty-container,.student-container {
+            position: relative;
+            padding-bottom: 20px;
+            .faculty,.student {
+                .row-header {
+                    padding: 20px 10px;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    &.active {
+                        box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+                    }
+                    p {
+                        margin: 0;
+                    }
+                    .attend-container {
+                        display: flex;
+                        gap: 10px;
+                        .btn {
+                            padding: 5px;
+                            width: 100px;
+                            background: transparent;
+                            border: 1px solid black;
+                            border-radius: 5px;
+                            &.attend {
+                                background: #4BB543;
+                                color: white;
+                                border: none;
+                            }
+                            &.not-attend {
+                                background: #d14249;
+                                color: white;
+                                border: none;
+                            }
+                        }
+                    }
+                }
+                h3 {
+                    position: absolute;
+                    top: -30px;
+                }
+                .faculty-detail-main-container,.student-detail-main-container {
+                    display: grid;
+                    grid-template-columns: repeat(3, auto);
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 5px;
+                    padding: 0px 10px;
+                    margin-bottom: 10px;
+                    .faculty-detail,.student-detail {
+                        position: relative;
+                        margin-top: 30px;
+                        .visitor-label {
+                            font-weight: bold;
+                            font-size: 17px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .institute-visitor-main-container {
+        border-top: 2px solid;
+        padding-bottom: 30px;
+        .visitor-header {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            .fs-title {
+                margin-bottom: 2rem;
+                text-align: center;
+                padding-top: 25px;
+            }
+            .edit-btn {
+                cursor: pointer;
+                width: 150px;
+                height: 40px;
+                border-radius: 5px;
+                border: none;
+                background: #013972;
+                color: white;
+                font-size: 16px;
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+        .institute-detail-container {
+            .institute-detail-header {
+                padding: 20px 10px;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                margin-bottom: 10px;
+                border-radius: 5px;
+                p {
+                    margin: 0;
+                }
+                &.active {
+                    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+                }
+            }
+            .institute-detail-main-container {
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                padding: 10px;
+                .faculty-container,.student-container {
+                    position: relative;
+                    padding-bottom: 20px;
+                    .faculty,.student {
+                        .row-header {
+                            padding: 20px 10px;
+                            border: 1px solid rgba(0, 0, 0, 0.2);
+                            border-radius: 5px;
+                            margin-bottom: 10px;
+                            cursor: pointer;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            &.active {
+                                box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+                            }
+                            p {
+                                margin: 0;
+                            }
+                            .attend-container {
+                                display: flex;
+                                gap: 10px;
+                                .btn {
+                                    padding: 5px;
+                                    width: 100px;
+                                    background: transparent;
+                                    border: 1px solid black;
+                                    border-radius: 5px;
+                                    &.attend {
+                                        background: #4BB543;
+                                        color: white;
+                                        border: none;
+                                    }
+                                    &.not-attend {
+                                        background: #d14249;
+                                        color: white;
+                                        border: none;
+                                    }
+                                }
+                            }
+                        }
+                        h3 {
+                            position: absolute;
+                            top: -30px;
+                        }
+                        .faculty-detail-main-container,.student-detail-main-container {
+                            display: grid;
+                            grid-template-columns: repeat(3, auto);
+                            border: 1px solid rgba(0, 0, 0, 0.2);
+                            border-radius: 5px;
+                            padding: 0px 10px;
+                            margin-bottom: 10px;
+                            .faculty-detail,.student-detail {
+                                position: relative;
+                                margin-top: 30px;
+                                .visitor-label {
+                                    font-weight: bold;
+                                    font-size: 17px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

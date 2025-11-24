@@ -1,0 +1,53 @@
+<div class="industrial-visit-list-component">
+    <div class="industrial-visit-list-container">
+      <div class="header">
+        <h2>Industrial Visits</h2>
+        <div class="search-with-add-iv-container">
+            <div class="search-container">
+                <input type="text" (keyup)="setSearch($event)" value="{{searchText}}"/>
+                <mat-icon *ngIf="searchText" aria-hidden="false" fontIcon="close" (click)="search('close')"></mat-icon>
+                <mat-icon aria-hidden="false" fontIcon="search" (click)="search('search')"></mat-icon>
+            </div>
+            <button *ngIf="!isInstitute && userData" class="add-iv-btn"><a class="link-btn" [routerLink]="['/industry/industrial-visits/create']">Create Industrial Visit</a></button>
+        </div>
+      </div>
+
+        <table class="table-container" *ngIf="!loading">
+            <thead class="table-head-container">
+                <tr class="table-head-row">
+                    <th class="table-head" *ngFor="let header of displayedColumns">{{ header.label }}</th>
+                </tr>
+            </thead>
+            <tbody class="table-body-container">
+                <tr class="table-data-row" [ngClass]="{ disabled: item?.disabled }" *ngFor="let item of getIndustryVisitsDetails; let i = index" (click)="actions('details', i)">
+                    <td class="table-data" *ngFor="let column of displayedColumns">
+                        {{ item[column.value] }}
+                        <ng-container *ngIf="column.value === 'actions'">
+                            <mat-icon 
+                                [matTooltip]="checkDateComparison(item.start_date, { checkSameOrAfter: true }) ? 'You cannot edit this industrial visit because of this IV expired' : ''"
+                                [ngClass]="{ disabled: checkDateComparison(item.start_date, { checkSameOrAfter: true }) }"
+                                aria-label="Edit" 
+                                class="edit" 
+                                fontIcon="edit" 
+                                (click)="!checkDateComparison(item.start_date, { checkSameOrAfter: true }) && actions('edit', i); $event.stopPropagation()"
+                                ></mat-icon>
+                            <mat-icon
+                                [matTooltip]="getIndustryVisitsDetails[i].instituteData.length !== 0 ? 'You cannot delete this industrial visit because of institute already applied' : ''"
+                                matTooltipPosition="above"
+                                [ngClass]="{ disabled: getIndustryVisitsDetails[i].instituteData.length !== 0 }"
+                                aria-label="Delete item"
+                                class="delete"
+                                fontIcon="delete"
+                                (click)="$event.stopPropagation(); getIndustryVisitsDetails[i].instituteData.length === 0 ? actions('delete', i) : null"
+                                ></mat-icon>
+                        </ng-container>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <p class="no-records" *ngIf="getIndustryVisitsDetails.length === 0">No records found</p>
+        <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+    </div>
+
+</div>

@@ -1,0 +1,51 @@
+
+<div class="dashboard-component">
+    <div class="filter-main-container">
+        <div class="filter-with-action-container">
+            <ng-container *ngIf="filterData.length > 0">
+                <div class="filter-container" *ngFor="let filter of filterData; let idx = index">
+                    <mat-select [(ngModel)]="filter.field" (selectionChange)="fieldSelection($event, idx)" class="field" placeholder="Choose Field">
+                        <mat-option class="dashoboard-option" [value]="field.value" *ngFor="let field of fields; let i = index">{{field.name}}</mat-option>
+                    </mat-select>
+                    <mat-select *ngIf="filter.field" [(ngModel)]="filter.condition" (selectionChange)="conditionSelection($event, idx)" class="field" placeholder="Choose Condition">
+                        <mat-option class="dashoboard-option" [value]="condition.value" *ngFor="let condition of conditions; let i = index">
+                            {{ condition.name + (condition.value === 'last' ? (" " + filter.field) : '') }}
+                        </mat-option>
+                    </mat-select>
+    
+                    <input *ngIf="filter.condition === 'last' || filter.condition === 'is' || filter.condition === 'not'" class="last-n-input" type="number" [(ngModel)]="filter.value" (input)="onInputChange($event, filter.condition, idx)"/>
+                    <div class="from-container"  *ngIf="filter.condition === 'between'">
+                        <label>From:</label>
+                        <input class="from between-input" type="number" [(ngModel)]="filter.from" (input)="onInputChange($event, filter.condition, idx, 'from')"/>
+                    </div>
+                    <div class="to-container" *ngIf="filter.condition === 'between'">
+                        <label>To:</label>
+                        <input class="to between-input" type="number" [(ngModel)]="filter.to" (input)="onInputChange($event, filter.condition, idx, 'to')"/>
+                    </div>
+                    <mat-icon class="clear" aria-hidden="false" fontIcon="close" (click)="clearFilter(idx)"></mat-icon>
+                </div>
+            </ng-container>
+            <div *ngIf="filterData.length < 2" class="add-filter" (click)="addFilter()">Add Filter</div>
+            <div class="action-container" *ngIf="filterData.length > 0">
+                <button class="apply-filter-btn" (click)="applyFilter()">Apply</button>
+                <button class="clear-filter-btn" (click)="clearAllFilter()">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-main-container" *ngIf="statics.length > 0">
+        <div class="chart-container" *ngFor="let chart of statics">
+            <mat-icon class="menu" aria-hidden="false" fontIcon="menu" (click)="clickMenu(chart.data.id)"></mat-icon>
+            <canvas [id]="chart.data.id"></canvas>
+            <div *ngIf="chart.data.id === clickedMenuId" class="menu-list-container">
+                <ul class="list-container">
+                    <li class="list" (click)="downloadFile(chart.downloadUrl, chart.title)"> <mat-icon class="download" aria-hidden="false" fontIcon="download"></mat-icon> Download CSV</li>
+                    <li class="list" (click)="downloadImage(chart.data.id, 'jpeg')"> <mat-icon class="download" aria-hidden="false" fontIcon="download"></mat-icon> Download JPEG</li>
+                    <li class="list" (click)="downloadImage(chart.data.id, 'png')"> <mat-icon class="download" aria-hidden="false" fontIcon="download"></mat-icon> Download PNG</li>
+                    <li class="list" (click)="downloadImage(chart.data.id, 'svg')"> <mat-icon class="download" aria-hidden="false" fontIcon="download"></mat-icon> Download SVG</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+  

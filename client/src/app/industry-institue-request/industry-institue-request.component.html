@@ -1,0 +1,28 @@
+<div class="industry-institue-request-component">
+    <div class="industry-institue-request-container">
+      <div class="header">
+        <h2>Add Industry/Institute Requests</h2>
+        <div class="search-container">
+          <input type="text" (keyup)="setSearch($event)" value="{{searchText}}"/>
+          <mat-icon *ngIf="searchText" aria-hidden="false" fontIcon="close" (click)="search('close')"></mat-icon>
+          <mat-icon aria-hidden="false" fontIcon="search" (click)="search('search')"></mat-icon>
+        </div>
+      </div>
+
+        <table class="table-container" *ngIf="!loading">
+            <thead class="table-head-container">
+                <tr class="table-head-row">
+                    <th class="table-head" *ngFor="let header of displayedColumns">{{ header.label }}</th>
+                </tr>
+            </thead>
+            <tbody class="table-body-container">
+                <tr class="table-data-row" *ngFor="let item of getIndustryInstituteDetails" (click)="showpopup(item)">
+                    <td class="table-data" *ngFor="let column of displayedColumns">{{ item[column.value] }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="no-records" *ngIf="getIndustryInstituteDetails.length === 0">No records found</p>
+        <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+    </div>
+
+</div>

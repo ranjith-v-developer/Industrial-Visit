@@ -1,0 +1,151 @@
+<div class="industrial-visit-edit-component">
+        <h2>{{ isEdit ? 'Edit' : 'Create' }} Industrial Visit</h2>
+        <form class="industrial-visit-form-container" [formGroup]="ivForm" (ngSubmit)="ivSubmit()">
+            <p class="text-danger"  *ngIf="error">{{ error }}</p>
+            <div class="form-main-container">
+                <div class="name form-input-container">
+                    <label for="name">
+                        Name*
+                    </label>
+                    <input id="name" type="text" formControlName="name" />
+                    <div *ngIf="ivForm?.get('name')?.invalid && ivForm?.get('name')?.touched" class="text-danger">
+                        Name is required.
+                    </div>
+                </div>
+    
+                <div class="description form-input-container">
+                    <label for="description">
+                        Description*
+                    </label>
+                    <textarea id="description" type="text" formControlName="description"></textarea>
+                    <div *ngIf="ivForm?.get('description')?.invalid && ivForm?.get('description')?.touched" class="text-danger">
+                        Description is required.
+                    </div>
+                </div>
+    
+                <div class="course_and_dept form-input-container">
+                    <label for="course_and_dept">
+                        Choose Courses / Departments*
+                    </label>
+                    <mat-select class="mat-select" formControlName="course_and_dept" multiple>
+                        <mat-option [value]="dept.value" *ngFor="let dept of departments">{{ dept.label }}</mat-option>
+                    </mat-select>
+                    <div *ngIf="ivForm?.get('course_and_dept')?.invalid && ivForm?.get('course_and_dept')?.touched"
+                        class="text-danger">
+                        Courses / Departments is required.
+                    </div>
+                </div>
+    
+                <div class="no_of_students form-input-container">
+                    <label for="no_of_students">
+                        No.of Students*
+                    </label>
+                    <input id="no_of_students" type="number" formControlName="no_of_students" />
+                    <div *ngIf="countError.no_of_students || ivForm?.get('no_of_students')?.invalid && ivForm?.get('no_of_students')?.touched" class="text-danger">
+                        {{ countError.no_of_students ? "You can't decrease the number of students" : "Number of Students required." }}
+                    </div>
+                </div>
+    
+                <div class="no_of_faculty form-input-container">
+                    <label for="no_of_faculty">
+                        No.of Faculty*
+                    </label>
+                    <input id="no_of_faculty" type="number" formControlName="no_of_faculty" />
+                    <div *ngIf="countError.no_of_faculty || (ivForm?.get('no_of_faculty')?.invalid && ivForm?.get('no_of_faculty')?.touched)" class="text-danger">
+                        {{ countError.no_of_faculty ? "You can't decrease the number of faculty." : "Number of faculty is required." }}
+                    </div>
+                </div>
+    
+                <div class="contact_person form-input-container">
+                    <label for="contact_person">
+                        Contact Person*
+                    </label>
+                    <input id="contact_person" type="text" formControlName="contact_person" />
+                    <div *ngIf="ivForm?.get('contact_person')?.invalid && ivForm?.get('contact_person')?.touched" class="text-danger">
+                        Contact Person required.
+                    </div>
+                </div>
+    
+                <div class="contact_no form-input-container">
+                    <label for="contact_no">
+                        Contact no*
+                    </label>
+                    <input id="contact_no" type="text" formControlName="contact_no" />
+                    <div *ngIf="ivForm?.get('contact_no')?.invalid && ivForm?.get('contact_no')?.touched"
+                        class="text-danger">
+                        Contact no is required.
+                    </div>
+                </div>
+    
+                <div class="alternative_contact_no form-input-container">
+                    <label for="alternative_contact_no">
+                        Alternative Contact no
+                    </label>
+                    <input id="alternative_contact_no" type="text" formControlName="alternative_contact_no" />
+                </div>
+    
+                <div class="food_provide form-input-container">
+                    <label for="food_provide">
+                        Food Provide
+                    </label>
+                    <mat-radio-group class="mat-radio" aria-label="Food Provide" id="food_provide" formControlName="food_provide">
+                        <mat-radio-button [value]="true" >Yes</mat-radio-button>
+                        <mat-radio-button [value]="false" >No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+    
+                <div class="available_institute form-input-container">
+                    <label for="available_institute">
+                        Total Institutions Permitted*
+                    </label>
+                    <input id="available_institute" type="number" formControlName="available_institute" />
+                    <div *ngIf="countError.available_institute || ivForm?.get('available_institute')?.invalid && ivForm?.get('available_institute')?.touched"
+                        class="text-danger">
+                        {{ countError.available_institute ? "You can't decrease total institutions" : "Total Institutions Permitted required." }}
+                    </div>
+                </div>
+    
+                <div class="start_date form-input-container">
+                    <label for="start_date">
+                        Start Date*
+                    </label>
+                    <div class="mat-date-form-field">
+                        <input id="start_date" matInput [matDatepicker]="picker" placeholder="Choose a date" [min]="minData" formControlName="start_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                    <div *ngIf="ivForm?.get('start_date')?.invalid && ivForm?.get('start_date')?.touched"
+                        class="text-danger">
+                        Start Date is required.
+                    </div>
+                </div>
+
+                <div class="location form-input-container">
+                    <label for="location">
+                        Location*
+                    </label>
+                    <input id="location" type="text" formControlName="location" />
+                    <div *ngIf="ivForm?.get('location')?.invalid && ivForm?.get('location')?.touched" class="text-danger">
+                        Location required.
+                    </div>
+                </div>
+    
+                <div class="end_date form-input-container">
+                    <label for="end_date">
+                        End Date*
+                    </label>
+                    <div class="mat-date-form-field">
+                        <input id="end_date" matInput [matDatepicker]="picker1" placeholder="Choose a date" [min]="ivForm.value.start_date" formControlName="end_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </div>
+                    <div *ngIf="ivForm?.get('end_date')?.invalid && ivForm?.get('end_date')?.touched"
+                        class="text-danger">
+                        End Date is required.
+                    </div>
+                </div>
+            </div>
+            <button class="button" type="submit" [disabled]="loading">{{ getButtonLabel() }}</button>
+            <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+        </form>
+</div>

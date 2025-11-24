@@ -1,0 +1,24 @@
+<div class="header-component">
+    <div class="header-container">
+        <a class="home-link" href="/home"><h2>IV</h2></a>
+        <div class="nav-container">
+            <a class="nav-item" *ngFor="let item of navItems; let i = index" routerLink="{{ item.path }}" routerLinkActive="active">{{ item.name }}</a>
+        </div>
+        <div class="btn-container" *ngIf="!userData">
+            <a class="link-btn" [routerLink]="['/login']" [queryParams]="{ action: 'signin' }">Sign In</a>
+            <!-- <a class="link-btn" [routerLink]="['/login']" [queryParams]="{ action: 'signup' }">Sign Up</a>             -->
+        </div>
+        <div class="user-container" *ngIf="userData">
+            <div class="avatar-container">
+                <img src="/assets/images/avatar.svg" (click)="toogleShowRightMenu()" /> 
+                <div *ngIf="userData.role === 'support' && industryInstituteCount > 0" class="request-count"><span class="count">{{ industryInstituteCount }}</span></div>
+            </div>
+            <div class="right-menu-container" *ngIf="showRightMenu" >
+                <ul class="menu-lists">
+                    <li class="request-ticket menu-list" *ngIf="userData.role === 'support' "><a href="/industry-institue-request">Requests</a><div class="request-count"><span *ngIf="industryInstituteCount > 0" class="count">{{ industryInstituteCount }}</span></div></li> 
+                    <li class="logout-btn menu-list" (click)="logOut()">Logout</li>      
+                </ul>
+            </div> 
+        </div>
+    </div>
+</div>

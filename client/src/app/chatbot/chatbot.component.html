@@ -1,0 +1,44 @@
+<div 
+  class="chatbot-main-container" 
+  [ngClass]="{'open': isOpen}" >
+    <ng-container *ngIf="isOpen; else closedState">
+        <div class="actions-container">
+            <p class="title">Chatbot</p>
+            <mat-icon aria-hidden="false" fontIcon="minimize" (click)="toggleChatbot()"></mat-icon>
+        </div>
+        <div class="content-main-container" *ngIf="!isListening">
+            <div class="chatbot-content-container">
+                <div class="message-container" [ngClass]="chat.type" *ngFor="let chat of chatData; let i = index">
+                    <div class="message">
+                        <markdown [data]="chat.message"></markdown>
+                    </div>
+                </div>
+                <div class="message-container loader bot">
+                    <div class="message" *ngIf="loading">...</div>
+                </div>
+            </div>
+            <div class="input-container">
+                <input type="text" [(ngModel)]="searchText" (input)="onInputChange($event)" placeholder="Write a message ..." />
+                <mat-icon class="send-icon" [ngClass]="{ 'disabled': !searchText }" aria-hidden="false" fontIcon="send" (click)="sendText()"></mat-icon>
+                <mat-icon class="mic-icon" aria-hidden="false" fontIcon="mic" (click)="startListening()"></mat-icon>
+            </div>
+        </div>
+       
+        <div *ngIf="isListening" class="voice-listening-container">
+            <div class="pulse-circle-container">
+                <div class="pulse-circle"></div>
+                <p class="listening-text">{{listenText}}...</p>
+            </div>
+            <div class="bottom-container">
+                <div class="close-icon-container">
+                    <mat-icon class="close-icon" aria-hidden="false" fontIcon="close" (click)="stopListening()"></mat-icon>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #closedState>
+        <div *ngIf="showRobot" class="chatbot-round-container" (click)="toggleChatbot()">
+            <img class="robot-img" src="/assets/images/robot-assistant.png" />
+        </div>
+    </ng-template>
+</div>

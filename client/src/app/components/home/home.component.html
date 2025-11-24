@@ -1,0 +1,63 @@
+<div class="home-component">
+    <div class="banner">
+        <img src="/assets/images/main-banner.jpg" alt="banner" />
+        <p class="heading">Industrial Visit</p>
+    </div>
+    <div class="content-container">
+        <div class="company-based-container" *ngIf="companyBased.length > 0">
+            <h2>COMPANY BASED</h2>
+            <div class="company-lists-container">
+                <div class="company-lists" *ngFor="let company of companyBased" [ngStyle]="{ 'background-color': company.bgColor }" (click)="handleRedirect('industry', company.industryId)">
+                    <div class="title-container">
+                        <div class="cover-image" [ngStyle]="{ 'background-image': 'url(/assets/images/iv-image.jpg)' }"></div>
+                        <p class="title">{{ company.name }}</p>
+                    </div>
+                    <div class="count-container">
+                        <div class="label-count">
+                            <label>Total IV available</label>
+                            <p class="iv-count">{{ company.ivCount }}</p>
+                        </div>
+                        <div class="label-count">
+                            <label>Total Applied Institutes</label>
+                            <p class="iv-count">{{ company.totalAppliedInstitute }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="department-based-container" *ngIf="deptKey.length > 0">
+            <h2>DEPARTMENT BASED</h2>
+            <div class="department-lists-container">
+                <div class="dept-lists" *ngFor="let dept of deptKey">
+                    <p class="dept-title">{{ departments[dept] }}</p>
+                    <div class="dept-iv-lists">
+                        <div class="dept-iv-list" *ngFor="let deptIvData of departmentBased[dept]"  [ngStyle]="{ 'background-color': deptIvData.bgColor }" (click)="handleRedirect('iv', deptIvData.ivId)">
+                        <div class="title-container">
+                            <div class="cover-image" [ngStyle]="{ 'background-image': 'url(/assets/images/iv-image.jpg)' }"></div>
+                            <p class="title">{{ deptIvData.ivTitle }}</p>
+                            <p class="industry-name">Industry:- {{ deptIvData.industryName }}</p>
+                        </div>
+                        <div class="count-container">
+                            <div class="label-count">
+                                <label>Total Allowed Institute</label>
+                                <p class="iv-count">{{ deptIvData.totalAllowedInstitute }}</p>
+                            </div>
+                            <div class="label-count">
+                                <label>Total Applied Institutes</label>
+                                <p class="iv-count">{{ deptIvData.totalAppliedInstitute }}</p>
+                            </div>
+                            <div class="label-count">
+                                <label>Total Allowed <br> Faculty &  Students</label>
+                                <p class="iv-count">{{ deptIvData.allowedFaculty }} - {{ deptIvData.allowedStudents }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-container" *ngIf="companyBased.length === 0 && deptKey.length === 0">No data yet...</div>
+    </div>
+    <loader [id]="'global'" type="fancy" [show]="loading"></loader>
+</div>
